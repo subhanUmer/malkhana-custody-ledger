@@ -1,0 +1,8 @@
+node_modules/
+artifacts/
+cache/
+offchain/store/
+offchain/index.json
+deployments/localhost.json
+*.log
+.env

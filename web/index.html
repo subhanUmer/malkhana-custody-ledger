@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Malkhana Custody Ledger</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Malkhana Custody Ledger</h1>
+    <div class="sub">Chain of custody for seized evidence &mdash; Police Rules 1934, r. 22.70</div>
+  </div>
+  <div class="spacer"></div>
+  <div id="health" class="mono" style="font-size:12px;color:var(--faint)">indexer: checking&hellip;</div>
+  <div id="whoami" class="mono" style="font-size:12px"></div>
+  <button id="connect">Connect wallet</button>
+</header>
+
+<main>
+  <div id="banners"></div>
+
+  <section>
+    <h2>Register seized item <span class="pill muted">Investigating Officer</span></h2>
+    <div class="row">
+      <div>
+        <label for="caseId">FIR / case number</label>
+        <input id="caseId" placeholder="FIR-115/2026" maxlength="31">
+      </div>
+      <div>
+        <label for="itemDesc">Item description (hashed, not stored on-chain)</label>
+        <input id="itemDesc" placeholder="Sealed pistol 9mm serial AX8841">
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="bundle">Evidence bundle (photos / seizure memo) &mdash; stored off-chain</label>
+        <input id="bundle" type="file">
+      </div>
+      <button id="btnRegister" disabled>Register</button>
+    </div>
+    <p class="hint">
+      The file is uploaded to the off-chain content store, which returns its
+      sha2-256 digest and IPFS CIDv1. Only the 32-byte digest goes on-chain.
+    </p>
+    <div id="uploadInfo" class="mono" style="font-size:12px;color:var(--muted)"></div>
+  </section>
+
+  <section>
+    <h2>Evidence register</h2>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Case</th><th>Status</th><th>Current holder</th><th>Steps</th><th>Trail</th></tr>
+      </thead>
+      <tbody id="evidenceRows"></tbody>
+    </table>
+    <div id="evidenceEmpty" class="empty">No evidence registered yet.</div>
+  </section>
+
+  <div class="grid2">
+    <section>
+      <h2>Record detail</h2>
+      <div id="detail"><div class="empty">Select a record above.</div></div>
+    </section>
+
+    <section>
+      <h2>Available actions</h2>
+      <div id="actions"><div class="empty">Select a record above.</div></div>
+    </section>
+  </div>
+
+  <section>
+    <h2>Custody trail <span class="pill muted">rebuilt from events by the indexer</span></h2>
+    <div id="trail"><div class="empty">Select a record above.</div></div>
+  </section>
+
+  <section>
+    <h2>Transaction log</h2>
+    <div id="log"><div class="empty">No transactions yet this session.</div></div>
+  </section>
+
+  <section>
+    <h2>Administration <span class="pill muted">Admin</span></h2>
+    <div class="row">
+      <button id="btnPause" class="warn" disabled>Pause system</button>
+      <button id="btnUnpause" class="ghost" disabled>Unpause</button>
+      <div style="flex:1 1 100%" class="hint">
+        Pause is a single system-wide emergency stop held by EvidenceRegistry;
+        CustodyManager and CourtOrders read it through an overridden
+        <span class="mono">paused()</span>. Reads stay open while paused.
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="/vendor/ethers.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+operation,baseline_mean_gas,optimized_mean_gas,gas_saved,percent_change
+"registerEvidence",507082,175836,331246,-65.32
+"initiateTransfer",261565,81445,180120,-68.86
+"acceptTransfer",196011,56668,139343,-71.08
+"handover (initiate + accept)",457576,138113,319463,-69.81
+"attachDocument",178724,29489,149235,-83.50
